@@ -2,6 +2,7 @@
 import os
 import sys
 
+# ingrid admin
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SmartCity.settings')
