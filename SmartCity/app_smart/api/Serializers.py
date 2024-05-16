@@ -1,12 +1,21 @@
+# representa um usuário no banco de dados do django
 from django.contrib.auth.models import User
-from rest_framework import generics, permissions
-from app_smart.api import serializers
+# ferramentas para serializar e desserializar objetos python em json
+from rest_framework import serializers
+# 
+from django.contrib.auth.hashers import make_password
 
-class CreateUserAPIViewSet(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = serializers.UserSerializer
-    permission_classes = [permissions.IsAdminUser]
+# será usada para serializar e desserializar objetos do modelo User
+class UserSerializer(serializers.ModelSerializer):
+    # não expoe a senha nas respostas de leitura
+    password = serializers.CharField(write_only=True)
 
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-    
+    # garantir que a senha do usuário seja criptografada antes de ser salva no banco de dados
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password']) # método do django de criptografia
+        return super().create(validated_data)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'password']
+        extra_kwargs = {'password': {'write_only': True}}
