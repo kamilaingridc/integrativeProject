@@ -25,3 +25,6 @@ class SensorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sensor
         fields = '__all__'
+
+        # serializer traduz o model pra saída da api 
+        
