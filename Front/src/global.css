@@ -1,0 +1,29 @@
+:root{
+  --cinza-claro: #dfd9df;
+  --roxo-escuro:#1f0322;
+  --roxo-claro:#ab10bc;
+}
+
+*{
+  margin:0px;
+  padding: 0px;
+  box-sizing: border-box;
+
+}
+body{
+  background-color: var(--roxo-escuro);
+
+}
+
+body, input{
+  font-family: "Dancing Script", cursive; 
+  
+
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}

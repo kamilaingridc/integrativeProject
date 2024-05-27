@@ -1,0 +1,23 @@
+.gridConteiner {
+    display: grid;
+    height: 100vh;
+    gap: 10px;
+
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: 100px 1fr;
+    grid-template-areas: 
+        'cabecalho cabecalho'
+        'lateral conteudo';
+}
+
+header {
+    grid-area: cabecalho; 
+}
+
+aside {
+    grid-area: lateral; 
+}
+
+main {
+    grid-area: conteudo;
+}
