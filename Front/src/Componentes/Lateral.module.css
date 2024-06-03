@@ -1,5 +1,5 @@
 .conteiner{
-    background-color: var(--cinza-claro);
+    background-color: gray;
 }
 
 .imagemCabecalho {
@@ -24,7 +24,7 @@
     width: 150px;
     height: 150px;
     border-radius: 10px;
-    border: 2px solid var(--roxo-escuro);
+    border: 2px solid pink;
     margin-bottom: 1rem;
     object-fit: cover;
 }
@@ -41,11 +41,11 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    background-color: var(--cinza-claro);
-    color: var(--roxo-escuro);
+    background-color: white;
+    color: black;
     font-weight: 600;
     margin-bottom: 18px;
-    border: 2px solid var(--roxo-escuro);
+    border: 2px solid black;
     border-radius: 8px;
     padding: .5rem 1rem;
     gap: .5rem;
@@ -54,6 +54,6 @@
 }
 
 .botao:hover {
-    background-color: var(--roxo-escuro);
-    color: var(--cinza-claro);
+    background-color: black;
+    color: white;
 }

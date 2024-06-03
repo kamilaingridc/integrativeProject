@@ -6,5 +6,8 @@ from .api.filters import SensorFilter
 def abre_index(request):
     return render(request, 'index.html')
 
+def abre_login(request):
+    return render(request, 'login.html')
+
 def cad_user(request):
     return render(request, 'cadastrarUsuario.html')

@@ -10,7 +10,7 @@ router = DefaultRouter()
 router.register(r'sensores', SensorViewSet)
 
 urlpatterns = [
-    path('', views.abre_index, name='abre_index'),
+    path('', views.abre_login, name='abre_login'),
     path('api/create_user/', CreateUserAPIViewset.as_view(), name='create_user'),
     path('api/sensor_filter/', SensorFilterView.as_view(), name='sensor_filter'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

@@ -1,137 +1,137 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import { Text, View } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
+import styles from './styles';
 
-const { width, height } = Dimensions.get('window');
 
-export default function Mapa() {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [lati, setLatitude] = useState(null);
-  const [longi, setLongitude] = useState(null);
 
-  // Temperaturas fictícias
-  const [temperature1, setTemperature1] = useState(25);
-  const [temperature2, setTemperature2] = useState(30);
+export default function Geo() {
+    const [location, setLocation] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
+    
+    const [la, setLa] = useState(null)
+    const [lo, setLo] = useState(null)
 
-  const bounds = {
-    north: -22.9138,
-    south: -22.9145,
-    west: -47.0687,
-    east: -47.0679,
-  };
+    const [distance1, setDistance1] = useState(null); // Distância até o ponto fixo 1
+    const [distance2, setDistance2] = useState(null); // Distância até o ponto fixo 2
+    const [temp, setTemp] = useState(null)
+    const [x, setX] = useState(null)
 
-  const fixedPoint1 = {
-    latitude: -22.914099,
-    longitude: -47.068040,
-  };
 
-  const fixedPoint2 = {
-    latitude: -22.914228,
-    longitude: -47.068679,
-  };
+    const initialRegion = {
+        latitude: -22.9140639,
+        longitude: -47.068686,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001,
+    };
 
-  const calculatePosition = (latitude, longitude) => {
-    if (!latitude || !longitude) return { top: '50%', left: '50%' };
+    const haversine = (lat1, lon1, lat2, lon2) => {
+        const toRad = (value) => (value * Math.PI) / 180;
 
-    if (latitude < bounds.south || latitude > bounds.north || longitude < bounds.west || longitude > bounds.east) {
-      return { top: '50%', left: '50%' };
+        const R = 6371000; // Raio da Terra em metros
+        const dLat = toRad(lat2 - lat1);
+        const dLon = toRad(lon2 - lon1);
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const d = R * c; // Distância em metros
+
+        return d;
+    };
+
+    const fixedPoints = [
+        {
+            id: 1,
+            latitude: -22.9140639, // Exemplo de coordenada 1
+            longitude: -47.068065, // Exemplo de coordenada 1
+        },
+        {
+            id: 2,
+            latitude: -22.9141804, // Exemplo de coordenada 2
+            longitude: -47.0683294, // Exemplo de coordenada 2
+        }
+    ];
+
+    useEffect(() => {
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return;
+            }
+
+            const locationSubscription = await Location.watchPositionAsync(
+                {
+                    accuracy: Location.Accuracy.High,
+                    timeInterval: 1000,
+                    distanceInterval: 1,
+                },
+                (newLocation) => {
+                    setLocation(newLocation.coords);
+                    setLa(newLocation.coords.latitude)
+                    setLo(newLocation.coords.longitude)
+
+                    // Calcular a distância entre a localização atual e os pontos fixos
+                    const distanceToFixedPoint1 = haversine(la, lo, fixedPoints[0]['latitude'], fixedPoints[0]['longitude']);
+                    const distanceToFixedPoint2 = haversine(la, lo, fixedPoints[1]['latitude'], fixedPoints[1]['longitude']);
+                    setDistance1(distanceToFixedPoint1);
+                    setDistance2(distanceToFixedPoint2);
+                    if (distanceToFixedPoint1 <= distanceToFixedPoint2) {
+                        setTemp(fixedPoints[0]['temp'])
+                    } else {
+                        setTemp(fixedPoints[1]['temp'])
+                    }
+
+                }
+
+            );
+
+            return () => {
+                locationSubscription.remove();
+            };
+        })();
+    }, []);
+
+    let text = 'Waiting...';
+    if (errorMsg) {
+        text = errorMsg;
+    } else if (location) {
+        text = `Latitude: ${location.latitude}, Longitude: ${location.longitude}`;
+
     }
 
-    const top = ((bounds.north - latitude) / (bounds.north - bounds.south)) * 100;
-    const left = ((longitude - bounds.west) / (bounds.east - bounds.west)) * 100;
+    return (
+        <View style={styles.container}>
+            <MapView
+                style={styles.map}
+                initialRegion={initialRegion}
+            >
+                <Marker coordinate={{ latitude: -22.915, longitude: -47.0678 }} />
+                {fixedPoints.map(point => (
+                    <Marker
+                        key={point.id}
+                        coordinate={{ latitude: point.latitude, longitude: point.longitude }}
+                        pinColor="blue" // Cor do marcador para os pontos fixos
+                    />
+                ))}
+                {location && (
+                    <Marker
+                        coordinate={{ latitude: location.latitude, longitude: location.longitude }}
+                        pinColor="red" // Cor do marcador para a localização atual
+                    />
+                )}
+            </MapView>
 
-    return { top: `${top}%`, left: `${left}%` };
-  };
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
-
-      Location.watchPositionAsync({
-        accuracy: Location.Accuracy.High,
-        timeInterval: 200,
-        distanceInterval: 0.8,
-      }, (newLocation) => {
-        setLocation(newLocation.coords);
-        setLatitude(newLocation.coords.latitude);
-        setLongitude(newLocation.coords.longitude);
-      });
-    })();
-  }, []);
-
-  let text = 'Waiting...';
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.map}>
-        {location && <View style={[styles.bolinha, calculatePosition(location.latitude, location.longitude)]} />}
-        <View style={[styles.fixedPoint1, calculatePosition(fixedPoint1.latitude, fixedPoint1.longitude)]}>
-          <Text style={styles.tempText}>{temperature1}°C</Text>
+            <View style={styles.cxs}>
+                <View style={styles.cx}><Text style={styles.cxTxt}>Latitude: </Text><Text style={styles.cxTxt}>{la}</Text></View>
+                <View style={styles.cx}><Text style={styles.cxTxt}>Longitude: </Text><Text style={styles.cxTxt}>{lo}</Text></View>
+                <View style={styles.cx}><Text style={styles.cxTxt}>Distância até o ponto fixo 1: </Text>{distance1 !== null && <Text style={styles.cxTxt}>{distance1.toFixed(1)} metros</Text>}</View>
+                <View style={styles.cx}><Text style={styles.cxTxt}>Distância até o ponto fixo 2: </Text>{distance1 !== null && <Text style={styles.cxTxt}>{distance1.toFixed(2)} metros</Text>}</View>
+                <View style={styles.cx}><Text style={styles.cxTxt}>Temperatura:</Text><Text style={styles.cxTxt}>{temp}ºC</Text></View>
+            </View>
         </View>
-        <View style={[styles.fixedPoint2, calculatePosition(fixedPoint2.latitude, fixedPoint2.longitude)]}>
-          <Text style={styles.tempText}>{temperature2}°C</Text>
-        </View>
-      </View>
-      <Text>Latitude: {lati}</Text>
-      <Text>Longitude: {longi}</Text>
-    </View>
-  );
+    );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  map: {
-    position: 'relative',
-    width: width - 40,
-    height: height / 1.5,
-    backgroundColor: '#e0e0e0',
-    borderRadius: 10,
-  },
-  bolinha: {
-    position: 'absolute',
-    width: 40,
-    height: 40,
-    backgroundColor: 'pink',
-    borderRadius: 10,
-    transform: [{ translateX: -10 }, { translateY: -10 }],
-  },
-  fixedPoint1: {
-    position: 'absolute',
-    width: 40,
-    height: 40,
-    backgroundColor: 'black',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    transform: [{ translateX: -10 }, { translateY: -10 }],
-  },
-  fixedPoint2: {
-    position: 'absolute',
-    width: 40,
-    height: 40,
-    backgroundColor: 'purple',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    transform: [{ translateX: -10 }, { translateY: -10 }],
-  },
-  tempText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-});

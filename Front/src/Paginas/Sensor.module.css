@@ -1,46 +1,59 @@
-.conteiner {
+/* Sensor.module.css */
+
+.container {
     display: flex;
-    height: 450px;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    
+    justify-content: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 50px;
 }
 
 h1 {
-    color: var(--roxo-claro);
-    align-self: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
 }
 
-table {
-    background-color: var(--cinza-claro);
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 16px;
-    border: 1px solid var(--roxo-claro);
-    border-collapse: collapse; /* Colapsa as bordas da tabela */
+.table {
     width: 100%;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    margin-left:50px ;
-
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
-th, td {
-    border: 1px solid var(--roxo-claro); /* Define as bordas para células */
-    padding: 8px; /* Adiciona padding às células */
-    text-align: left; /* Alinha o texto à esquerda */
+.table th, .table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    font-size: 16px;
 }
 
-tr {
-    border: 2px solid var(--roxo-claro); /* Define as bordas para as linhas */
+.table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
 }
 
-th {
-    background-color: var(--roxo-esc--cinza-claro); /* Cor de fundo para cabeçalhos */
-    color:var(--roxo); /* Cor do texto dos cabeçalhos */
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
-tbody tr:nth-child(even) {
-    background-color: var(--cinza-claro); /* Alterna a cor de fundo para linhas pares */
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.carregando, .erro {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.erro {
+    color: red;
 }

@@ -1,7 +1,9 @@
 from django.db import models
 
 # Create your models here.
+
 class Sensor(models.Model):
+
     TIPO_SENSOR_CHOICE = [
         ('Temperatura', 'Temperatura'),
         ('Umidade', 'Umidade'),
@@ -22,3 +24,38 @@ class Sensor(models.Model):
     def __str__(self):
         return f"{self.tipo} - {self.localizacao}"
     
+# model para armazenar os dados de temperatura
+class TemperaturaData(models.Model):
+    sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+    valor = models.FloatField() #valor da temp em graus celsius
+    #timestamp = models.DateTimeField(auto_now_add=True) 
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        return f"Temperatura: {self.valor} ºC - {self.timestamp}"
+    
+class UmidadeData(models.Model):
+    sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+    valor = models.FloatField() #valor da temp em graus celsius
+    #timestamp = models.DateTimeField(auto_now_add=True) 
+    timestamp = models.DateTimeField()
+    
+    def __str__(self):
+        return f"Umidade: {self.valor} % - {self.timestamp}"
+
+class ContadorData(models.Model):
+    sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+    #timestamp = models.DateTimeField(auto_now_add=True) 
+    timestamp = models.DateTimeField()
+    
+    def __str__(self):
+        return f"Contagem: {self.valor} % - {self.timestamp}"
+    
+class LuminosidadeData(models.Model):
+    sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+    valor = models.FloatField() #valor da temp em graus celsius
+    #timestamp = models.DateTimeField(auto_now_add=True) 
+    timestamp = models.DateTimeField()
+    
+    def __str__(self):
+        return f"Luminosidade: {self.valor} Lux - {self.timestamp}"

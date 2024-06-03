@@ -45,7 +45,7 @@ export function Localizacao() {
 
     return (
         <div>
-            <h1>Localização dos Sensores</h1>
+            <h1 style={{ color: 'white' }}>Localização dos Sensores</h1>
             <Mapa pontos={pontos} />
         </div>
     );

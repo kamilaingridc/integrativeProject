@@ -1,36 +1,51 @@
-// import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from "react-native";
+const { width, height } = Dimensions.get('window');
 
-// export default StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   map: {
-//     width: '100%',
-//     height: '80%',
-//     backgroundColor: '#e0e0e0',
-//     position: 'relative',
-//   },
-//   bolinha: {
-//     position: 'absolute',
-//     width: 20,
-//     height: 20,
-//     backgroundColor: 'pink',
-//     borderRadius: 10,
-//   },
-//   coordenadasA: {
-//     position: 'absolute',
-//     width: 20,
-//     height: 20,
-//     backgroundColor: 'black',
-//     borderRadius: 10,
-//   },
-//   coordenadasB: {
-//     position: 'absolute',
-//     width: 20,
-//     height: 20,
-//     backgroundColor: 'purple',
-//     borderRadius: 10,
-//   },
-// });
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    btn: {
+      width: '100%',
+      height: 80,
+      // backgroundColor:"#ff0",
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    map: {
+      width: width - 40,
+      height: height / 2,
+      borderRadius: 10,
+    },
+    button: {
+      width: "70%",
+      height: 40,
+      backgroundColor: '#000',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    buttonText: {
+      color: 'white'
+    },
+    cxs: {
+      // backgroundColor: '#f00',
+      width: '80%'
+    },
+    cx: {
+      // backgroundColor: '#ff0',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: 5,
+      marginBottom: 8,
+      borderWidth: 1,
+      padding: 5,
+      borderColor: '#999'
+    },
+    cxTxt: {
+      fontSize: 12,
+    }
+  });
+  
+  export default styles

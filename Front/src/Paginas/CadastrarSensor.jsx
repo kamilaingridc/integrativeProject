@@ -1,4 +1,3 @@
-// src/Paginas/CadastrarSensor.jsx
 import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -34,7 +33,7 @@ export function CadastrarSensor() {
             });
 
             alert('Sensor cadastrado com sucesso!');
-            navigate('/inicial'); // Redireciona para a página inicial após o cadastro
+            navigate('/inicial');
         } catch (error) {
             console.error('Erro no cadastro de sensor', error);
         }

@@ -1,3 +1,0 @@
-temperatura
-umidade
-luminosidade

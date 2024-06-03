@@ -1,44 +1,60 @@
+/* Login.module.css */
+
 .conteiner {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 50px);
-    justify-content: center;
     align-items: center;
-    background-color: var(--cinza-escuro);
+    justify-content: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 100px;
 }
 
 .titulo {
-    color: var(--roxo-escuro);
-    font-size: 2rem;
-    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
 }
 
 .formulario {
     display: flex;
     flex-direction: column;
-    background-color: var(--cinza-claro);
-    padding: 30px;
-    border-radius: 10px;
+    width: 100%;
 }
 
 .campo {
-    background-color: var(--cinza-claro);
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 6px;
-}
-
-.botao {
-    background-color: var(--roxo-escuro);
-    color: var(--cinza-claro);
+    margin-bottom: 15px;
     padding: 10px;
-    border-radius: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .mensagem {
-    font-size: .9rem;
-    font-weight: 600;
-    margin-top: -6px;
-    margin-bottom: 1rem;  
-    color: red; 
+    color: red;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.botao {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.botao:hover {
+    background-color: #0056b3;
 }
