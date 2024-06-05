@@ -5,19 +5,10 @@
 
 }
 body{
-  background-color: black;
+  background-color: white;
 
 }
 
 body, input{
-  font-family: "Poppins"; 
-  
-
-}
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ; 
 }
