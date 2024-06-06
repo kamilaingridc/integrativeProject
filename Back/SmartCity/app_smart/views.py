@@ -11,3 +11,6 @@ def abre_login(request):
 
 def cad_user(request):
     return render(request, 'cadastrarUsuario.html')
+
+def autenticacao():
+    pass

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 # 
 from django.contrib.auth.hashers import make_password
-from app_smart.models import Sensor
+from app_smart.models import Sensor, TemperaturaData, UmidadeData, LuminosidadeData
 
 # será usada para serializar e desserializar objetos do modelo User
 class UserSerializer(serializers.ModelSerializer):
@@ -28,3 +28,7 @@ class SensorSerializer(serializers.ModelSerializer):
 
         # serializer traduz o model pra saída da api 
         
+class TemperaturaDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TemperaturaData
+        fields = '__all__'
