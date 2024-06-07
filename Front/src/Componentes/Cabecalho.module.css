@@ -1,29 +1,71 @@
+/* Estilos para o contêiner principal */
 .container {
-    background-color: #8d0801;
-    display: flex;
-    width: 100%;
-    height: 7vh;
-    padding: 13px;
-    justify-content: center;
-  }
-  
-  .titulo {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-left: 0px;
-    align-self: flex-start; 
-  }
-  
-  .link {
-    text-decoration: none;
-    color: white;
-    font-size: 1.2rem;
-    margin-left: 20px;
-    padding: 0 50px;
-    cursor: pointer;
- }
+  background-color: #fff; /* Cor de fundo branca */
+  display: flex; /* Usando flexbox para layout */
+  align-items: center; /* Alinhando os itens verticalmente ao centro */
+  justify-content: space-between; /* Distribuindo o espaço entre os itens */
+  padding: 13px; /* Espaçamento interno */
+  width: 100%; /* Largura total */
+  height: 7vh; /* Altura de 7% da altura da viewport */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+}
 
- .link:hover {
-    color: yellow;
- }
+/* Estilos para o contêiner do título */
+.tituloContainer {
+  display: flex; /* Usando flexbox para layout */
+  align-items: center; /* Alinhando os itens verticalmente */
+}
+
+/* Estilos para o título */
+.titulo, .tituloRed {
+  font-size: 1.5rem; /* Tamanho da fonte */
+  font-weight: 600; /* Peso da fonte */
+  margin: 0; /* Margem zero para remover espaçamento */
+  
+}
+
+/* Estilos para o título preto */
+.titulo {
+  color: black; /* Cor do texto preto */
+}
+
+/* Estilos para o título vermelho */
+.tituloRed {
+  color: red; /* Cor do texto vermelho */
+}
+
+/* Estilos para o contêiner dos links */
+.linksz {
+  display: flex; /* Usando flexbox para layout */
+  justify-content: flex-end; /* Alinhando os itens à direita */
+  flex-grow: 1; /* Ocupando todo o espaço disponível à direita */
+}
+
+/* Estilos para cada link */
+.link {
+  text-decoration: none; /* Removendo decoração de texto */
+  color: black; /* Cor do texto preto */
+  font-size: 1.2rem; /* Tamanho da fonte */
+  margin: 0 70px; /* Margem horizontal para espaçamento */
+  padding: 0 10px; /* Espaçamento interno */
+  cursor: pointer; /* Mudando o cursor ao passar */
+  display: flex; /* Usando flexbox para layout */
+  align-items: center; /* Alinhando os itens verticalmente */
+  font-weight: 450;
+}
+
+/* Estilos para a imagem dentro do link */
+.link img {
+  width: 20px; /* Largura da imagem */
+  height: auto; /* Altura automática para manter a proporção */
+}
+
+/* Estilos quando o mouse está sobre o link */
+.link:hover {
+  color: red; /* Cor do texto vermelho */
+}
+
+/* Estilos para a imagem dentro do link quando o mouse está sobre ele */
+.link:hover img {
+  filter: brightness(0) saturate(100%) invert(28%) sepia(81%) saturate(7289%) hue-rotate(354deg) brightness(94%) contrast(105%); /* Aplicando um filtro para alterar a cor da imagem */
+}

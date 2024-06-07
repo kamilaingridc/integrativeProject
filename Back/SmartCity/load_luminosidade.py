@@ -1,12 +1,12 @@
 import csv
-from datetime import datetime
-from dateutil import parser
-import pytz
+from datetime import datetime  # manipular datas e horários.
+from dateutil import parser  # analisar e converter strings em objetos datetime.
+import pytz  # trabalhar com fusos horários.
 import os
 import django
 
 # Configuração do Django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'smart_city.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SmartCity.settings')
 django.setup()
 
 from app_smart.models import LuminosidadeData, Sensor

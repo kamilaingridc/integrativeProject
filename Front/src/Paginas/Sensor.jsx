@@ -47,7 +47,7 @@ export function Sensor() {
                         <th>Responsável</th>
                         <th>Longitude</th>
                         <th>Latitude</th>
-                        <th>Alterar Dados</th>
+                        {/* <th>Alterar Dados</th> */}
                     </tr>
                 </thead>
                 <tbody>

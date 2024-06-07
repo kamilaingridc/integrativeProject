@@ -6,7 +6,7 @@ import os
 import django
 
 # Configuração do Django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'smart_city.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SmartCity.settings')
 django.setup()
 
 from app_smart.models import ContadorData, Sensor
