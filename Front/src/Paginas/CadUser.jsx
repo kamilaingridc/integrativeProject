@@ -1,68 +1,87 @@
-import React from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import estilos from './CadUser.module.css';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import styles from './CadUser.module.css';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const schemaRegistro = z.object({
-    nome: z.string(),
-    email: z.string,
-    usuario: z.string().min(5, 'Mínimo de 5 caracteres').max(20, 'Máximo de 10 caracteres'),
-    senha: z.string().min(6, 'Informe 6 caracteres').max(6, 'Máximo de 6 caracteres'),
+  email: z.string()
+    .email('Por favor, insira um email válido')
+    .min(5, 'Por favor, insira pelo menos 5 caracteres')
+    .max(100, "Por favor, insira até 100 caracteres"),
+  username: z.string()
+    .min(5, 'Por favor, insira pelo menos 5 caracteres')
+    .max(100, "Por favor, insira até 100 caracteres"),
+  password: z.string()
+    .min(6, 'Por favor, insira pelo menos 6 caracteres')
+    .max(100, "Por favor, insira até 100 caracteres")
 });
 
 export function Registro() {
-    const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: zodResolver(schemaRegistro)
-    });
+  const navigate = useNavigate();
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(schemaRegistro)
+  });
 
-    async function obterDadosFormulario(data) {
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/api/token/', {
-                username: data.usuario,
-                password: data.senha
-            });
-
-            const { access, refresh } = response.data;
-            localStorage.setItem('access_token', access);
-            localStorage.setItem('refresh_token', refresh);
-
-            console.log('Registro bem-sucedido!');
-            navigate('/inicial');
-        } catch (error) {
-            console.error('Erro de autenticação', error);
+  async function obterDadosFormulario(data) {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/create_user/', data, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
         }
+      });
+
+      alert('Usuário cadastrado com sucesso!');
+      navigate('/inicial'); // Redireciona para a página inicial após o Registro
+    } catch (error) {
+      console.error('Erro no Registro do usuário', error);
     }
+  }
 
-    return (
-        <div className={estilos.conteiner}>
-            <p className={estilos.titulo}>Registro</p>
+  return (
+    <div className={styles.container}>
+      <form
+        className={styles.formulario}
+        onSubmit={handleSubmit(obterDadosFormulario)}
+      >
+        <h1 className={styles.titulo}>Registro</h1>
 
-            <form className={estilos.formulario} onSubmit={handleSubmit(obterDadosFormulario)}>
-                <input
-                    {...register('usuario')}
-                    className={estilos.campo}
-                    placeholder="Usuário"
-                />
-                {errors.usuario && (
-                    <p className={estilos.mensagem}>{errors.usuario.message}</p>
-                )}
-
-                <input
-                    {...register('senha')}
-                    type="password"
-                    className={estilos.campo}
-                    placeholder="Senha"
-                />
-                {errors.senha && (
-                    <p className={estilos.mensagem}>{errors.senha.message}</p>
-                )}
-
-                <button className={estilos.botao}>Entrar</button>
-            </form>
+        <div className={styles.campo}>
+          <label>Email</label>
+          <input
+            {...register('email')}
+            type="email"
+          />
+          {errors.email && (
+            <p className={styles.messageErro}>{errors.email.message}</p>
+          )}
         </div>
-    );
+
+        <div className={styles.campo}>
+          <label>Username</label>
+          <input
+            {...register('username')}
+          />
+          {errors.username && (
+            <p className={styles.messageErro}>{errors.username.message}</p>
+          )}
+        </div>
+
+        <div className={styles.campo}>
+          <label>Password</label>
+          <input
+            {...register('password')}
+            type="password"
+          />
+          {errors.password && (
+            <p className={styles.messageErro}>{errors.password.message}</p>
+          )}
+        </div>
+
+        <button className={styles.button} type="submit">Entrar</button>
+      </form>
+    </div>
+  );
 }

@@ -19,7 +19,7 @@ function AjusteDeBounds({ pontos }) {
 export default function Mapa({ pontos }) {
     return (
         <MapContainer
-            style={{ height: '500px', width: '100%' }}
+            style={{ height: '80vh', width: '90%', borderRadius:20, textAlign:'center' }}
             center={[0, 0]}
             zoom={2}
         >
@@ -33,7 +33,8 @@ export default function Mapa({ pontos }) {
                         <strong>Tipo:</strong> {ponto.tipo}<br />
                         <strong>Localização:</strong> {ponto.localizacao}<br />
                         <strong>Latitude:</strong> {ponto.latitude}<br />
-                        <strong>Longitude:</strong> {ponto.longitude}
+                        <strong>Longitude:</strong> {ponto.longitude}<br />
+                        <button style={{textAlign: 'center', justifyContent: 'center'}}>Detalhes</button>
                     </Popup>
                 </Marker>
             ))}

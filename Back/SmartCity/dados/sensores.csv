@@ -1,4 +1,4 @@
-tipo;unidade_medida;latitude;longitude;localizacao;responsavel;status_operacional;observacao;mac_address
+,tipo;unidade_medida;latitude;longitude;localizacao;responsavel;status_operacional;observacao;mac_address
 Temperatura;°C;-22,9141396;-47,0681575;A111-Laboratório de Eletrônica;Isabela - Murilo - Emmanuele - Kamila - Maria Luiza;True;;
 Umidade;%;-22,9141396;-47,0681575;A111-Laboratório de Eletrônica;Isabela - Murilo - Emmanuele - Kamila - Maria Luiza;True;;
 Temperatura;°C;-22,9141236;-47,0681981;A113-Laboratório de Eletrônica;Isabela - Murilo - Emmanuele - Kamila - Maria Luiza;True;;
@@ -82,8 +82,8 @@ Luminosidade;Lux;-22,914166;-47,068355;Banheiro Feminino Bl A 1o Andar;Emmanuele
 Luminosidade;Lux;-22,914167;-47,068359;Lab Manut Equip Informática ;Emmanuele - Kamila - Maria Luiza;True;;
 Contador;;-22,914228;-47,068679;Escada de emergência - Bloco A Lado Impar;Emmanuele - Kamila - Maria Luiza;True;;
 Contador;;-22,91481;-47,067327;Estacionamento Superior; Ana Luiza - Isa Leite;True;;
-Umidade;%;-22,9114536;-47,067675;Pomar em frente ao refeitorio; Ana Luiza - Isa Leite;True;;
-Temperatura;°C;-22,9114536;-47,067675;Pomar em frente ao refeitorio; Ana Luiza - Isa Leite;True;;
+;;;;;;;;
+;;;;;;;;
 Temperatura;°C;-22,914036;-47,067926;Pomar inferior; Ana Luiza - Isa Leite;True;;
 Umidade;%;-22,914036;-47,067926;Pomar inferior; Ana Luiza - Isa Leite;True;;
 Temperatura;°C;-22,9140714;-47,067967;Arvore 1; Ana Luiza - Isa Leite;True;;
@@ -92,8 +92,8 @@ Temperatura;°C;-22,914087;-47,067877;Arvore 2 - Paineira; Ana Luiza - Isa Leite
 Umidade;%;-22,914087;-47,067877;Arvore 2 - Paineira; Ana Luiza - Isa Leite;True;;
 Temperatura;°C;-22,914241;-47,06777;Arvore 3 - Abiu; Ana Luiza - Isa Leite;True;;
 Umidade;%;-22,914241;-47,06777;Arvore 3 - Abiu; Ana Luiza - Isa Leite;True;;
-Temperatura;°C;-22,9114389;-47,067644;Arvore 4 - Ficheira; Ana Luiza - Isa Leite;True;;
-Umidade;%;-22,9114389;-47,067644;Arvore 4 - Ficheira; Ana Luiza - Isa Leite;True;;
+;;;;;;;;
+;;;;;;;;
 Temperatura;°C;-22,914927;-47,067913;Meio estacionamento; Ana Luiza - Isa Leite;True;;
 Contador;;-22,914076;-47,068552;Entrada Estacionamento Superior; Ana Luiza - Isa Leite;True;;
 Contador;;-22,91402;-47,068069;Entrada Manutenção; Ana Luiza - Isa Leite;True;;

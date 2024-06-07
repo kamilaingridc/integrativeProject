@@ -7,7 +7,7 @@
   padding: 13px; /* Espaçamento interno */
   width: 100%; /* Largura total */
   height: 7vh; /* Altura de 7% da altura da viewport */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
 }
 
 /* Estilos para o contêiner do título */

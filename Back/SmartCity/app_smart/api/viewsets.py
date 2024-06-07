@@ -34,7 +34,7 @@ class SensorFilterView(APIView):
 class CreateUserAPIViewSet(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
-    permission_classes = [permissions.IsAdminUser]
+    # permission_classes = [permissions.IsAdminUser]
 
     def post (self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)

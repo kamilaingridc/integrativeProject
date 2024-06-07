@@ -1,0 +1,15 @@
+.container {
+    text-align: center;
+}
+
+.title {
+    color: black;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+.mapa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

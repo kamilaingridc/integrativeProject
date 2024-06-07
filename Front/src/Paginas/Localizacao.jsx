@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Mapa from '../Componentes/Mapa';
+import styles from './Localizacao.module.css';
 
 export function Localizacao() {
     const [pontos, setPontos] = useState([]);
@@ -44,9 +45,11 @@ export function Localizacao() {
     }
 
     return (
-        <div>
-            <h1 style={{ color: 'white' }}>Localização dos Sensores</h1>
+        <div className={ styles.container }>
+          <h1 className={ styles.title }>Localização dos Sensores</h1>
+          <div className={ styles.mapa }>
             <Mapa pontos={pontos} />
+          </div>         
         </div>
-    );
+      );
 }
