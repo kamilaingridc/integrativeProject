@@ -1,5 +1,3 @@
-/* Sensor.module.css */
-
 .container {
     display: flex;
     flex-direction: column;
@@ -56,4 +54,74 @@ h1 {
 
 .erro {
     color: red;
+}
+
+.forms {
+    margin: 9px; /* Add some margin around the form container */
+  }
+  
+  .formulario {
+    background-color: #f2f2f2; /* Light gray background */
+    padding: 15px; /* Add some padding inside the form */
+    border-radius: 5px; /* Rounded corners for a nice look */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    display: flex; /* Enable Flexbox layout */
+    gap: 20px; /* Add space between flex items */
+  }
+
+  .label {
+    display: block; /* Make labels appear on a new line */
+    margin-bottom: 10px; /* Add some space between labels and inputs */
+    font-weight: bold; /* Make labels a bit bolder */
+  }
+
+  .input {
+    width: 9%; /* Make inputs fill the available space */
+    padding: 5px;
+    border: 1px solid #ccc; /* Add a thin border */
+    border-radius: 3px; /* Rounded corners for inputs */
+  }
+
+  .input[type="checkbox"] {
+    width: auto; /* Don't force full width for checkbox */
+  }
+
+  .botao {
+    background-color: green; /* Green color for the button */
+    color: white; /* White text for the button */
+    padding: 10px 20px; /* Add some padding to the button */
+    border: none; /* Remove default button border */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer; /* Make the button look clickable */
+  }
+
+  .botao:hover {
+    background-color: #0bb813; /* Darken the button on hover */
+  }
+
+.botaoEditar {
+    background-color: yellow; /* Green color for the button */
+    color: black; /* White text for the button */
+    padding: 10px 20px; /* Add some padding to the button */
+    border: none; /* Remove default button border */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer; /* Make the button look clickable */
+}
+
+.botaoDeletar {
+    background-color: red; /* Green color for the button */
+    color: white; /* White text for the button */
+    padding: 10px 20px; /* Add some padding to the button */
+    border: none; /* Remove default button border */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer; /* Make the button look clickable */
+}
+
+.botaoEditar:hover {
+    background-color: #b89e0b; /* Darken the button on hover */
+}
+
+.botaoDeletar:hover {
+    background-color: #e42f2f; /* Darken the button on hover */
 }

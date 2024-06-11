@@ -14,7 +14,6 @@ export function Cabecalho() {
                 <Link className={styles.link} to='/inicial/lista_sensores'>Lista Sensores</Link>
                 <Link className={styles.link} to='/inicial/cadsensor'>Cadastrar Sensores</Link>
                 <Link className={styles.link} to='/inicial/registro'>Cadastrar Usuário</Link>
-                <Link className={styles.link} to='/inicial/filtro'>Filtros</Link>
                 <Link className={styles.link} to='/'><img src={Logout} alt="Log out button"/></Link>
             </div>
         </header><>
