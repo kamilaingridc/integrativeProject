@@ -34,7 +34,7 @@ export function Registro() {
       });
 
       alert('Usuário cadastrado com sucesso!');
-      navigate('/inicial'); // Redireciona para a página inicial após o Registro
+      navigate('/inicial'); 
     } catch (error) {
       console.error('Erro no Registro do usuário', error);
     }

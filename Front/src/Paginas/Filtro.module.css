@@ -1,0 +1,22 @@
+.container {
+    background-color: #ffcccc; /* Vermelho claro para o fundo */
+    color: #cc0000; /* Vermelho escuro para o texto */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.formulario {
+    margin-bottom: 20px;
+}
+
+.label {
+    color: #cc0000; /* Vermelho escuro para o texto */
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input {
+    padding: 8px;
+    border: 1px solid #cc0000; /* Vermelho escuro para a borda */
+    border-radius: 4px;
+}

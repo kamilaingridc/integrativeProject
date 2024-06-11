@@ -1,18 +1,21 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import Mapa from './src/pages/mapa';
-import Login from './src/pages/login';
+import Routers from "./src/routers";
 
-const Stack = createStackNavigator();
-
-export default function Main() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Mapa" component={Mapa} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+export default function App(){
+  return(
+    <Routers />
+  )
 }
+
+
+// import { View, Text } from "react-native";
+
+// export default function App(){
+//   return(
+//     <View>
+//       <Text>
+//         Lindomar
+//       </Text>
+//     </View>
+//   )
+// }

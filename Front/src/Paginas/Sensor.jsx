@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import estilos from './Sensor.module.css';
+import styles from './Sensor.module.css';
 
 export function Sensor() {
     const [sensores, setSensores] = useState([]);
@@ -36,9 +36,9 @@ export function Sensor() {
     }
 
     return (
-        <div className={estilos.container}>
+        <div className={styles.container}>
             <h1>Lista de Sensores</h1>
-            <table className={estilos.table}>
+            <table className={styles.table}>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -47,7 +47,6 @@ export function Sensor() {
                         <th>Responsável</th>
                         <th>Longitude</th>
                         <th>Latitude</th>
-                        {/* <th>Alterar Dados</th> */}
                     </tr>
                 </thead>
                 <tbody>

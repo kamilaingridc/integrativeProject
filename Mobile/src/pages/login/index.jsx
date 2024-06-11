@@ -1,74 +1,93 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, TextInput, Pressable } from 'react-native'
-import styles from './styles'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import axios from 'axios'
+import React from 'react';
+import axios from 'axios';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from './styles';
 
-export default function Login({ navigation }) {
-    const [usuario, setUsuario] = useState('')
-    const [senha, setSenha] = useState('')
-    const [token, setToken] = useState(null)
+const schemaLogin = z.object({
+    usuario: z.string().min(3, 'Mínimo de 3 caracteres').max(20, 'Máximo de 20 caracteres'),
+    senha: z.string().min(6, 'Informe 6 caracteres').max(20, 'Máximo de 20 caracteres'),
+});
 
-    useEffect(()=>{
-        AsyncStorage.setItem('token', token)
-        .then(()=>{
-            if(token != null){
-                console.log('Token SignIn:', token);
-            }
-        }).catch(error=>{
-            console.log(error);
-        })
-    }, [token])
+const Login = ({ navigation }) => {
+    const { control, handleSubmit, formState: { errors } } = useForm({
+        resolver: zodResolver(schemaLogin)
+    });
 
-    const fetchToken = async () => {
-        try{
-            const response = await axios.post(
-                'http://127.0.0.1:8000/token/',
-                {
-                    "username": usuario,
-                    "password": senha
-                }
-            )
-            setToken(response.data.access)
-            navigation.navigate("Read")
-        } catch (error){
-            console.log(error)
+    const handleLogin = async (data) => {
+        try {
+            const response = await axios.post('http://10.109.72.25:8000/api/token/', {
+                username: data.usuario,
+                password: data.senha
+            });
+
+            const { access, refresh } = response.data;
+
+            await AsyncStorage.setItem('access_token', access);
+            await AsyncStorage.setItem('refresh_token', refresh);
+
+            console.log('Login bem-sucedido!');
+            navigation.navigate('Mapa');
+        } catch (error) {
+            console.error('Erro de autenticação', error);
+            Alert.alert('Erro de autenticação', 'Usuário ou senha incorretos');
         }
-    }
+    };
+
+    const handleRegister = () => {
+        navigation.navigate('Registro'); 
+    };
 
     return (
         <View style={styles.container}>
-            <View>
-                <Text style={styles.title}>Login</Text>
+            <Text style={styles.titulo}>Login</Text>
+
+            <View style={styles.formulario}>
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <TextInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            style={styles.campo}
+                            placeholder="Usuário"
+                        />
+                    )}
+                    name="usuario"
+                    rules={{ required: true }}
+                />
+                {errors.usuario && (
+                    <Text style={styles.mensagem}>{errors.usuario.message}</Text>
+                )}
+
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <TextInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            style={styles.campo}
+                            placeholder="Senha"
+                            secureTextEntry
+                        />
+                    )}
+                    name="senha"
+                    rules={{ required: true }}
+                />
+                {errors.senha && (
+                    <Text style={styles.mensagem}>{errors.senha.message}</Text>
+                )}
+
+                <Button title="Entrar" onPress={handleSubmit(handleLogin)} style={styles.botao} />
+                <Button title="Registrar" onPress={handleRegister} />
             </View>
-            <TextInput
-                placeholder='usuario'
-                onChangeText={setUsuario}
-                value={usuario}
-                style={styles.caixa}
-            />
-            <TextInput
-                placeholder='senha'
-                onChangeText={setSenha}
-                value={senha}
-                style={styles.caixa}
-                secureTextEntry={true}
-            />
-
-            <Pressable
-                style={styles.btnOk}
-                onPress={fetchToken}
-            >
-                <Text style={{ fontSize: 25 }}>Sign In</Text>
-            </Pressable>
-
-            <Pressable
-                style={styles.btnOk}
-                onPress={()=>navigation.navigate('SignUp')}
-            >
-                <Text style={{ fontSize: 25 }}>Sign Up</Text>
-            </Pressable>
-
         </View>
-    )
-}
+    );
+};
+
+export default Login;
