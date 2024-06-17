@@ -6,7 +6,7 @@ import { Inicial } from '../Paginas/Inicial';
 import { CadastrarSensor } from '../Paginas/CadastrarSensor';
 import { Localizacao } from '../Paginas/Localizacao';
 import { Registro } from '../Paginas/CadUser';
-import {Delete} from '../Paginas/Delete'
+import { Delete } from '../Paginas/Delete'
 import { Edit } from '../Paginas/Edit';
 
 export function Rotas() {

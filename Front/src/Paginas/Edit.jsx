@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { z } from 'zod';
-import './Edit.module.css';
+import styles from './Edit.module.css'; 
 
 const schemaEditSensor = z.object({
-    tipo: z.string().nonempty('Tipo é obrigatório'),
-    mac_address: z.string().max(20, 'Máximo de 20 caracteres').nullable(),
-    latitude: z.string().refine(val => !isNaN(parseFloat(val)), 'Latitude inválida'),
-    longitude: z.string().refine(val => !isNaN(parseFloat(val)), 'Longitude inválida'),
-    localizacao: z.string().max(100, 'Máximo de 100 caracteres'),
-    responsavel: z.string().max(100, 'Máximo de 100 caracteres'),
-    unidade_medida: z.string().max(20, 'Máximo de 20 caracteres').nullable(),
-    status_operacional: z.boolean(),
-    observacao: z.string().nullable(),
+  tipo: z.string().nonempty('Tipo é obrigatório'),
+  mac_address: z.string().max(20, 'Máximo de 20 caracteres').nullable(),
+  latitude: z.string().refine(val => !isNaN(parseFloat(val)), 'Latitude inválida'),
+  longitude: z.string().refine(val => !isNaN(parseFloat(val)), 'Longitude inválida'),
+  localizacao: z.string().max(100, 'Máximo de 100 caracteres'),
+  responsavel: z.string().max(100, 'Máximo de 100 caracteres'),
+  unidade_medida: z.string().max(20, 'Máximo de 20 caracteres').nullable(),
+  status_operacional: z.boolean(),
+  observacao: z.string().nullable(),
 });
 
 export function Edit() {
@@ -33,6 +33,7 @@ export function Edit() {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [validationErrors, setValidationErrors] = useState({});
 
   useEffect(() => {
     const fetchSensor = async () => {
@@ -54,15 +55,25 @@ export function Edit() {
 
   const editSensor = async (e) => {
     e.preventDefault();
+    
     try {
+      schemaEditSensor.parse(sensor);
       const response = await axios.put(`http://127.0.0.1:8000/api/sensores/${id}`, sensor, {
         headers: { 'Content-Type': 'application/json' }
       });
       console.log(response.data);
       navigate('/');
     } catch (error) {
-      console.log(error);
-      setError(error.message);
+      if (error instanceof z.ZodError) {
+        const errors = {};
+        error.errors.forEach(err => {
+          errors[err.path[0]] = err.message;
+        });
+        setValidationErrors(errors);
+      } else {
+        console.log(error);
+        setError(error.message);
+      }
     }
   };
 
@@ -75,10 +86,10 @@ export function Edit() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className='edit-sensor'>
+    <div className={styles.editSensor}>
       <h2>Edite seu sensor</h2>
       <form onSubmit={editSensor}>
-        <div className="form-control">
+        <div className={styles.formControl}>
           <label htmlFor="tipo">Tipo</label>
           <input 
             type="text" 
@@ -88,8 +99,9 @@ export function Edit() {
             value={sensor.tipo}
             onChange={handleChange}
           />
+          {validationErrors.tipo && <span className={styles.error}>{validationErrors.tipo}</span>}
         </div>
-        <div className="form-control">
+        <div className={styles.formControl}>
           <label htmlFor="mac_address">MAC Address</label>
           <input 
             type="text" 
@@ -99,8 +111,9 @@ export function Edit() {
             value={sensor.mac_address ?? ''}
             onChange={handleChange}
           />
+          {validationErrors.mac_address && <span className={styles.error}>{validationErrors.mac_address}</span>}
         </div>
-        <div className="form-control">
+        <div className={styles.formControl}>
           <label htmlFor="localizacao">Localização</label>
           <input 
             type="text" 
@@ -110,8 +123,9 @@ export function Edit() {
             value={sensor.localizacao}
             onChange={handleChange}
           />
+          {validationErrors.localizacao && <span className={styles.error}>{validationErrors.localizacao}</span>}
         </div>
-        <div className="form-control">
+        <div className={styles.formControl}>
           <label htmlFor="responsavel">Responsável</label>
           <input 
             type="text" 
@@ -121,8 +135,9 @@ export function Edit() {
             value={sensor.responsavel}
             onChange={handleChange}
           />
+          {validationErrors.responsavel && <span className={styles.error}>{validationErrors.responsavel}</span>}
         </div>
-        <div className="form-control">
+        <div className={styles.formControl}>
           <label htmlFor="longitude">Longitude</label>
           <input 
             type="text" 
@@ -132,8 +147,9 @@ export function Edit() {
             value={sensor.longitude}
             onChange={handleChange}
           />
+          {validationErrors.longitude && <span className={styles.error}>{validationErrors.longitude}</span>}
         </div>
-        <div className="form-control">
+        <div className={styles.formControl}>
           <label htmlFor="latitude">Latitude</label>
           <input 
             type="text" 
@@ -143,8 +159,9 @@ export function Edit() {
             value={sensor.latitude}
             onChange={handleChange}
           />
+          {validationErrors.latitude && <span className={styles.error}>{validationErrors.latitude}</span>}
         </div>
-        <div className="form-control">
+        <div className={styles.formControl}>
           <label htmlFor="unidade_medida">Unidade de Medida</label>
           <input 
             type="text" 
@@ -154,8 +171,9 @@ export function Edit() {
             value={sensor.unidade_medida ?? ''}
             onChange={handleChange}
           />
+          {validationErrors.unidade_medida && <span className={styles.error}>{validationErrors.unidade_medida}</span>}
         </div>
-        <div className="form-control">
+        <div className={styles.formControl}>
           <label htmlFor="status_operacional">Status Operacional</label>
           <input 
             type="checkbox" 
@@ -165,7 +183,7 @@ export function Edit() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-control">
+        <div className={styles.formControl}>
           <label htmlFor="observacao">Observação</label>
           <input 
             type="text" 
@@ -176,8 +194,8 @@ export function Edit() {
             onChange={handleChange}
           />
         </div>
-        <input type="submit" value="Editar Sensor" className='btn' />
+        <input type="submit" value="Editar Sensor" className={styles.btn} />
       </form>
     </div>
   );
-};
+}
