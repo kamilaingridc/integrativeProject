@@ -34,7 +34,6 @@ export default function Mapa({ pontos }) {
                         <strong>Localização:</strong> {ponto.localizacao}<br />
                         <strong>Latitude:</strong> {ponto.latitude}<br />
                         <strong>Longitude:</strong> {ponto.longitude}<br />
-                        <button style={{textAlign: 'center', justifyContent: 'center'}}>Detalhes</button>
                     </Popup>
                 </Marker>
             ))}

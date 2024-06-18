@@ -88,8 +88,6 @@ export function Sensor() {
         
         <div className={styles.container}>
             <h1>Lista de Sensores</h1>
-
-            
             
             <table className={styles.table}>
                 <thead>
@@ -114,11 +112,12 @@ export function Sensor() {
                             <td>{sensor.latitude}</td>
                             <td>
                                 <div className="methods">
-                                    <Link to={`/edit/${sensor.id}`} className='botaoEditar'>
-                                        Edit
+                                    <Link to={`/inicial/edit/${sensor.id}`} className='botaoEditar'>
+                                        Editar
                                     </Link>
-                                    <Link to={`/delete/${sensor.id}`} className='botaoDeletar'>
-                                        Delete
+                                    <br />
+                                    <Link to={`/inicial/delete/${sensor.id}`} className='botaoDeletar'>
+                                        Deletar
                                     </Link>
                                 </div>
                             </td>

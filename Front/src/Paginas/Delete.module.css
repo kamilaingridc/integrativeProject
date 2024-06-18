@@ -1,0 +1,51 @@
+.deleteItem {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.deleteItem h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.deleteItem p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.deleteItem strong {
+    color: #000;
+}
+
+.deleteItem button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    margin: 20px 0;
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.deleteItem button:hover {
+    background-color: #c9302c;
+}
+
+.deleteItem div {
+    margin-bottom: 20px;
+}
+
+.deleteItem p:last-child {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+}

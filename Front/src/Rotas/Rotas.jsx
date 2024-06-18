@@ -6,14 +6,14 @@ import { Inicial } from '../Paginas/Inicial';
 import { CadastrarSensor } from '../Paginas/CadastrarSensor';
 import { Localizacao } from '../Paginas/Localizacao';
 import { Registro } from '../Paginas/CadUser';
-import { Delete } from '../Paginas/Delete'
+import { Delete } from '../Paginas/Delete';
 import { Edit } from '../Paginas/Edit';
 
 export function Rotas() {
     return (
         <Routes>
             <Route path='/' element={<Login />} />
-            <Route path='inicial' element={<Inicial />}>
+            <Route path='/inicial' element={<Inicial />}>
                 <Route index element={<Localizacao />} />
                 <Route path='lista_sensores' element={<Sensor />} />
                 <Route path='edit/:id' element={<Edit />} />

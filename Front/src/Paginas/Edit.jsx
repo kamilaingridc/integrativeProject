@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { z } from 'zod';
-import styles from './Edit.module.css'; 
+import styles from './Edit.module.css';
 
 const schemaEditSensor = z.object({
   tipo: z.string().nonempty('Tipo é obrigatório'),
   mac_address: z.string().max(20, 'Máximo de 20 caracteres').nullable(),
-  latitude: z.string().refine(val => !isNaN(parseFloat(val)), 'Latitude inválida'),
-  longitude: z.string().refine(val => !isNaN(parseFloat(val)), 'Longitude inválida'),
+  latitude: z.union([z.string(), z.number()]).refine(val => !isNaN(parseFloat(val)), 'Latitude inválida'),
+  longitude: z.union([z.string(), z.number()]).refine(val => !isNaN(parseFloat(val)), 'Longitude inválida'),
   localizacao: z.string().max(100, 'Máximo de 100 caracteres'),
   responsavel: z.string().max(100, 'Máximo de 100 caracteres'),
   unidade_medida: z.string().max(20, 'Máximo de 20 caracteres').nullable(),
@@ -18,8 +18,9 @@ const schemaEditSensor = z.object({
 
 export function Edit() {
   const navigate = useNavigate();
-  const { id } = useParams(); 
-  
+  const { id } = useParams();
+  console.log(`Edit component mounted with id: ${id}`);
+
   const [sensor, setSensor] = useState({
     tipo: '',
     mac_address: '',
@@ -29,8 +30,9 @@ export function Edit() {
     responsavel: '',
     unidade_medida: '',
     status_operacional: false,
-    observacao: ''
+    observacao: '',
   });
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
@@ -38,13 +40,17 @@ export function Edit() {
   useEffect(() => {
     const fetchSensor = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/sensores/${id}`);
-        const sensorData = response.data; 
+        const response = await axios.get(`http://127.0.0.1:8000/api/sensores/${id}/`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          },
+        });
+        const sensorData = response.data;
         setSensor(sensorData);
         setLoading(false);
         setError(null);
       } catch (error) {
-        console.log(error);
+        console.error('Error fetching sensor:', error);
         setError(error.message);
         setLoading(false);
       }
@@ -55,13 +61,16 @@ export function Edit() {
 
   const editSensor = async (e) => {
     e.preventDefault();
-    
+
     try {
       schemaEditSensor.parse(sensor);
-      const response = await axios.put(`http://127.0.0.1:8000/api/sensores/${id}`, sensor, {
-        headers: { 'Content-Type': 'application/json' }
+      const response = await axios.put(`http://127.0.0.1:8000/api/sensores/${id}/`, sensor, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        },
       });
-      console.log(response.data);
+      console.log('Sensor edited successfully:', response.data);
       navigate('/');
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -71,7 +80,7 @@ export function Edit() {
         });
         setValidationErrors(errors);
       } else {
-        console.log(error);
+        console.error('Error editing sensor:', error);
         setError(error.message);
       }
     }
@@ -79,7 +88,10 @@ export function Edit() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setSensor({ ...sensor, [name]: type === 'checkbox' ? checked : value });
+    setSensor(prevState => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   if (loading) return <div>Loading...</div>;
@@ -91,11 +103,11 @@ export function Edit() {
       <form onSubmit={editSensor}>
         <div className={styles.formControl}>
           <label htmlFor="tipo">Tipo</label>
-          <input 
-            type="text" 
-            id='tipo' 
-            name="tipo" 
-            placeholder='Digite o tipo'
+          <input
+            type="text"
+            id="tipo"
+            name="tipo"
+            placeholder="Digite o tipo"
             value={sensor.tipo}
             onChange={handleChange}
           />
@@ -103,11 +115,11 @@ export function Edit() {
         </div>
         <div className={styles.formControl}>
           <label htmlFor="mac_address">MAC Address</label>
-          <input 
-            type="text" 
-            id='mac_address' 
-            name="mac_address" 
-            placeholder='Digite o MAC address'
+          <input
+            type="text"
+            id="mac_address"
+            name="mac_address"
+            placeholder="Digite o MAC address"
             value={sensor.mac_address ?? ''}
             onChange={handleChange}
           />
@@ -115,11 +127,11 @@ export function Edit() {
         </div>
         <div className={styles.formControl}>
           <label htmlFor="localizacao">Localização</label>
-          <input 
-            type="text" 
-            id='localizacao' 
-            name="localizacao" 
-            placeholder='Digite a localização'
+          <input
+            type="text"
+            id="localizacao"
+            name="localizacao"
+            placeholder="Digite a localização"
             value={sensor.localizacao}
             onChange={handleChange}
           />
@@ -127,11 +139,11 @@ export function Edit() {
         </div>
         <div className={styles.formControl}>
           <label htmlFor="responsavel">Responsável</label>
-          <input 
-            type="text" 
-            id='responsavel' 
-            name="responsavel" 
-            placeholder='Digite o responsável'
+          <input
+            type="text"
+            id="responsavel"
+            name="responsavel"
+            placeholder="Digite o responsável"
             value={sensor.responsavel}
             onChange={handleChange}
           />
@@ -139,11 +151,11 @@ export function Edit() {
         </div>
         <div className={styles.formControl}>
           <label htmlFor="longitude">Longitude</label>
-          <input 
-            type="text" 
-            id='longitude' 
-            name="longitude" 
-            placeholder='Digite a longitude'
+          <input
+            type="text"
+            id="longitude"
+            name="longitude"
+            placeholder="Digite a longitude"
             value={sensor.longitude}
             onChange={handleChange}
           />
@@ -151,11 +163,11 @@ export function Edit() {
         </div>
         <div className={styles.formControl}>
           <label htmlFor="latitude">Latitude</label>
-          <input 
-            type="text" 
-            id='latitude' 
-            name="latitude" 
-            placeholder='Digite a latitude'
+          <input
+            type="text"
+            id="latitude"
+            name="latitude"
+            placeholder="Digite a latitude"
             value={sensor.latitude}
             onChange={handleChange}
           />
@@ -163,11 +175,11 @@ export function Edit() {
         </div>
         <div className={styles.formControl}>
           <label htmlFor="unidade_medida">Unidade de Medida</label>
-          <input 
-            type="text" 
-            id='unidade_medida' 
-            name="unidade_medida" 
-            placeholder='Digite a unidade de medida'
+          <input
+            type="text"
+            id="unidade_medida"
+            name="unidade_medida"
+            placeholder="Digite a unidade de medida"
             value={sensor.unidade_medida ?? ''}
             onChange={handleChange}
           />
@@ -175,21 +187,21 @@ export function Edit() {
         </div>
         <div className={styles.formControl}>
           <label htmlFor="status_operacional">Status Operacional</label>
-          <input 
-            type="checkbox" 
-            id='status_operacional' 
-            name="status_operacional" 
+          <input
+            type="checkbox"
+            id="status_operacional"
+            name="status_operacional"
             checked={sensor.status_operacional}
             onChange={handleChange}
           />
         </div>
         <div className={styles.formControl}>
           <label htmlFor="observacao">Observação</label>
-          <input 
-            type="text" 
-            id='observacao' 
-            name="observacao" 
-            placeholder='Digite a observação'
+          <input
+            type="text"
+            id="observacao"
+            name="observacao"
+            placeholder="Digite a observação"
             value={sensor.observacao ?? ''}
             onChange={handleChange}
           />

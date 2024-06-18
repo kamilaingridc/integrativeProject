@@ -6,7 +6,7 @@ export function Inicial() {
   return (
     <div className={styles.gridContainer}>
       <Cabecalho />
-      <Outlet/>
+      <Outlet />
     </div>
   );
 }
