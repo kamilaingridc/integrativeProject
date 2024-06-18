@@ -27,7 +27,7 @@ export function Sensor() {
         setLoading(true);
         setError(null);
         const token = localStorage.getItem('access_token');
-        const response = await axios.post('http://127.0.0.1:8000/api/sensor_filter/', filters, {
+        const response = await axios.post('kamilaingridc.pythonanywhere.com/api/sensor_filter/', filters, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ export function Sensor() {
         async function fetchSensores() {
             try {
                 const token = localStorage.getItem('access_token');
-                const response = await axios.get('http://127.0.0.1:8000/api/sensores/', {
+                const response = await axios.get('kamilaingridc.pythonanywhere.com/api/sensores/', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

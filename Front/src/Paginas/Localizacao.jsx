@@ -12,7 +12,7 @@ export function Localizacao() {
         async function fetchSensores() {
             try {
                 const token = localStorage.getItem('access_token');
-                const response = await axios.get('http://127.0.0.1:8000/api/sensores/', {
+                const response = await axios.get('kamilaingridc.pythonanywhere.com/api/sensores/', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

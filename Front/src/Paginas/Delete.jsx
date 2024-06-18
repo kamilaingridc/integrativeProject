@@ -15,7 +15,7 @@ export function Delete() {
     useEffect(() => {
         const fetchItem = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/sensores/${id}/`, {
+                const response = await axios.get(`kamilaingridc.pythonanywhere.com/api/sensores/${id}/`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
                     },
@@ -34,7 +34,7 @@ export function Delete() {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://127.0.0.1:8000/api/sensores/${id}/`, {
+            await axios.delete(`kamilaingridc.pythonanywhere.com/api/sensores/${id}/`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
