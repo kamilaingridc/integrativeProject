@@ -19,7 +19,7 @@ const Login = ({ navigation }) => {
 
     const handleLogin = async (data) => {
         try {
-            const response = await axios.post('http://10.109.72.25:8000/api/token/', {
+            const response = await axios.post('https://ingridkamilac.pythonanywhere.com/api/token/', {
                 username: data.usuario,
                 password: data.senha
             });

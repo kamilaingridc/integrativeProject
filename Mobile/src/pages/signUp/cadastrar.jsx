@@ -26,7 +26,7 @@ const Registro = () => {
 
   const handleRegistro = async (data) => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/create_user/', data);
+      const response = await axios.post('https://ingridkamilac.pythonanywhere.com/api/create_user/', data);
       Alert.alert('Usuário cadastrado com sucesso!');
       navigation.navigate('Login');
     } catch (error) {

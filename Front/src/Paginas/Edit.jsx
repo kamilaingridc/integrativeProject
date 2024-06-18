@@ -40,7 +40,7 @@ export function Edit() {
   useEffect(() => {
     const fetchSensor = async () => {
       try {
-        const response = await axios.get(`kamilaingridc.pythonanywhere.com/api/sensores/${id}/`, {
+        const response = await axios.get(`https://ingridkamilac.pythonanywhere.com/api/sensores/${id}/`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
           },
@@ -64,7 +64,7 @@ export function Edit() {
 
     try {
       schemaEditSensor.parse(sensor);
-      const response = await axios.put(`kamilaingridc.pythonanywhere.com/api/sensores/${id}/`, sensor, {
+      const response = await axios.put(`https://ingridkamilac.pythonanywhere.com/api/sensores/${id}/`, sensor, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`,

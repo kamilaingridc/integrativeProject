@@ -19,7 +19,7 @@ export function Login() {
 
     async function obterDadosFormulario(data) {
         try {
-            const response = await axios.post('kamilaingridc.pythonanywhere.com/api/token/', {
+            const response = await axios.post('https://ingridkamilac.pythonanywhere.com/api/token/', {
                 username: data.usuario,
                 password: data.senha
             });

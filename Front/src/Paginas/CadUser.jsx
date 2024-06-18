@@ -27,7 +27,7 @@ export function Registro() {
 
   async function obterDadosFormulario(data) {
     try {
-      const response = await axios.post('kamilaingridc.pythonanywhere.com/api/create_user', data, {
+      const response = await axios.post('https://ingridkamilac.pythonanywhere.com/api/create_user', data, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`
         }

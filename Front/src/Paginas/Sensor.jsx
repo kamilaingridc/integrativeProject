@@ -27,7 +27,7 @@ export function Sensor() {
         setLoading(true);
         setError(null);
         const token = localStorage.getItem('access_token');
-        const response = await axios.post('kamilaingridc.pythonanywhere.com/api/sensor_filter/', filters, {
+        const response = await axios.post('https://ingridkamilac.pythonanywhere.com/api/sensor_filter/', filters, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ export function Sensor() {
         async function fetchSensores() {
             try {
                 const token = localStorage.getItem('access_token');
-                const response = await axios.get('kamilaingridc.pythonanywhere.com/api/sensores/', {
+                const response = await axios.get('https://ingridkamilac.pythonanywhere.com/api/sensores/', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -111,12 +111,12 @@ export function Sensor() {
                             <td>{sensor.longitude}</td>
                             <td>{sensor.latitude}</td>
                             <td>
-                                <div className="methods">
-                                    <Link to={`/inicial/edit/${sensor.id}`} className='botaoEditar'>
+                                <div className={styles.methods}>
+                                    <Link to={`/inicial/edit/${sensor.id}`} className={styles.botaoEditar}>
                                         Editar
                                     </Link>
                                     <br />
-                                    <Link to={`/inicial/delete/${sensor.id}`} className='botaoDeletar'>
+                                    <Link to={`/inicial/delete/${sensor.id}`} className={styles.botaoDeletar}>
                                         Deletar
                                     </Link>
                                 </div>
