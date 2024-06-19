@@ -1,21 +1,12 @@
 import React from 'react';
-import Routers from "./src/routers";
+import { Dimensions } from 'react-native';
+import Routers from './src/routers';
 
-export default function App(){
-  return(
+const { width, height } = Dimensions.get('window');
+
+export default function App() {
+
+  return (
     <Routers />
-  )
+  );
 }
-
-
-// import { View, Text } from "react-native";
-
-// export default function App(){
-//   return(
-//     <View>
-//       <Text>
-//         Lindomar
-//       </Text>
-//     </View>
-//   )
-// }

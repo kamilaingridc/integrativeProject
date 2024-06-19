@@ -5,8 +5,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from "@expo/vector-icons";
 import Login from "./pages/login/index";
 import Mapa from "./pages/mapa/mapa";
-import Detalhes from "./pages/detalhes/detalhes";
-import Registro from "./pages/signUp/cadastrar";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -46,17 +44,6 @@ function MyTabs() {
                 }}
             />
 
-            <Tab.Screen
-                name="Registro"
-                component={Registro}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: ({ size, color }) => (
-                        <Feather name="map" size={size} color={color} />
-                    )
-                }}
-            />
-
         </Tab.Navigator>
     );
 }
@@ -78,16 +65,6 @@ export default function Routers() {
                 <Stack.Screen
                     name="Mapa"
                     component={Mapa}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Detalhes"
-                    component={Detalhes}
-                    options={{ headerShown: false }}
-                />
-                <Stack.Screen
-                    name="Registro"
-                    component={Registro}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>

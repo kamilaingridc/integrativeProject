@@ -37,10 +37,6 @@ const Login = ({ navigation }) => {
         }
     };
 
-    const handleRegister = () => {
-        navigation.navigate('Registro'); 
-    };
-
     return (
         <View style={styles.container}>
             <Text style={styles.titulo}>Login</Text>
@@ -84,7 +80,6 @@ const Login = ({ navigation }) => {
                 )}
 
                 <Button title="Entrar" onPress={handleSubmit(handleLogin)} style={styles.botao} />
-                <Button title="Registrar" onPress={handleRegister} />
             </View>
         </View>
     );
